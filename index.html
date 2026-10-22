@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsystems CCTV Sales & Service</title>
+  
+  <!-- CSS Styles -->
+  <style>
+    /* CSS Variables & Resets */
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --light-bg: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #f8fafc;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--light-bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* Navigation Header */
+    header {
+      background-color: var(--primary);
+      color: var(--text-light);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      font-weight: 500;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--text-light);
+      transition: 0.3s;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                  url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      color: var(--text-light);
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #cbd5e1;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: var(--text-light);
+      padding: 0.75rem 1.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Grid & Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Forms */
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--card-shadow);
+    }
+
+    .contact-info, .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-info h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .contact-info p {
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: var(--text-light);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary);
+        padding: 1.5rem 0;
+        text-align: center;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">MICROSYSTEMS <span>CCTV</span></div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a class="nav-item active" data-target="home">Home</a></li>
+        <li><a class="nav-item" data-target="about">About Us</a></li>
+        <li><a class="nav-item" data-target="services">Services</a></li>
+        <li><a class="nav-item" data-target="products">Products</a></li>
+        <li><a class="nav-item" data-target="contact">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Views Container -->
+  <main>
+    
+    <!-- PAGE 1: HOME SECTION -->
+    <section id="home" class="page-section active">
+      <div class="hero">
+        <h1>Advanced CCTV & Security Solutions</h1>
+        <p>Protecting homes, offices, and commercial properties with state-of-the-art surveillance and support.</p>
+        <button class="btn nav-item" data-target="contact">Get a Free Quote</button>
+      </div>
+
+      <div class="container">
+        <h2 class="section-title">Why Choose Microsystems?</h2>
+        <p class="section-subtitle">We bring reliability, cutting-edge tech, and unmatched service quality.</p>
+        
+        <div class="grid">
+          <div class="card">
+            <h3>High Quality Products</h3>
+            <p>We supply top-tier HD and IP cameras with night vision and remote mobile monitoring capabilities.</p>
+          </div>
+          <div class="card">
+            <h3>Expert Installation</h3>
+            <p>Our certified technicians ensure neat, reliable, and optimal installation for complete coverage.</p>
+          </div>
+          <div class="card">
+            <h3>24/7 Support & AMC</h3>
+            <p>Ongoing maintenance, rapid repair services, and tailored annual maintenance contracts (AMC).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: ABOUT SECTION -->
+    <section id="about" class="page-section">
+      <div class="container">
+        <h2 class="section-title">About Microsystems</h2>
+        <p class="section-subtitle">Delivering high-performance surveillance technology since inception.</p>
+        
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto; color: var(--text-muted);">
+          Microsystems is a trusted provider of end-to-end security surveillance solutions. 
+          We specialize in supplying, installing, and maintaining advanced security systems for residential, 
+          commercial, and industrial clients.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Our Mission</h3>
+            <p>To deliver cutting-edge surveillance technology and exceptional service to secure homes and businesses effectively.</p>
+          </div>
+          <div class="card">
+            <h3>Our Vision</h3>
+            <p>To be the leading and most reliable security solutions partner, recognized for quality and trust.</p>
+          </div>
+          <div class="card">
+            <h3>Core Values</h3>
+            <p>Integrity, technical excellence, prompt customer support, and tailored solution designs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: SERVICES SECTION -->
+    <section id="services" class="page-section">
+      <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Comprehensive solutions tailored to meet your safety requirements.</p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>CCTV Installation</h3>
+            <p>Complete end-to-end installation of IP, HD-TVI, and wireless camera systems for homes and offices.</p>
+          </div>
+          <div class="card">
+            <h3>Repair & Maintenance</h3>
+            <p>Troubleshooting, camera realignment, DVR/NVR repair, cable replacements, and system upgrades.</p>
+          </div>
+          <div class="card">
+            <h3>Annual Maintenance Contracts (AMC)</h3>
+            <p>Preventative maintenance plans ensuring your security systems run smoothly year-round without interruption.</p>
+          </div>
+          <div class="card">
+            <h3>Remote Monitoring Setup</h3>
+            <p>Configure smartphone and web access so you can monitor your premises live from anywhere in the world.</p>
+          </div>
+          <div class="card">
+            <h3>Biometric & Access Control</h3>
+            <p>Installation of time attendance systems, door access control, and smart security integrations.</p>
+          </div>
+          <div class="card">
+            <h3>Site Security Audits</h3>
+            <p>Free site inspection to analyze vulnerability points and recommend optimum camera layouts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: PRODUCTS SECTION -->
+    <section id="products" class="page-section">
+      <div class="container">
+        <h2 class="section-title">Our Products</h2>
+        <p class="section-subtitle">Explore our line of professional surveillance hardware.</p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Dome Cameras</h3>
+            <p>Ideal for indoor security with compact designs, wide-angle coverage, and vandal resistance.</p>
+          </div>
+          <div class="card">
+            <h3>Bullet Cameras</h3>
+            <p>Perfect for long-distance outdoor surveillance with weatherproof casing and long-range night vision.</p>
+          </div>
+          <div class="card">
+            <h3>PTZ Cameras</h3>
+            <p>Pan-Tilt-Zoom cameras allowing 360-degree rotation and powerful optical zoom controls.</p>
+          </div>
+          <div class="card">
+            <h3>IP / Network Cameras</h3>
+            <p>High-definition digital cameras providing clear imaging and seamless network connectivity.</p>
+          </div>
+          <div class="card">
+            <h3>DVRs & NVRs</h3>
+            <p>4, 8, 16, and 32-channel digital recording units with large storage capacities and remote backup.</p>
+          </div>
+          <div class="card">
+            <h3>Security Accessories</h3>
+            <p>Power supplies, high-grade BNC/Cat6 cables, hard drives, PoE switches, and mounting brackets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5: CONTACT SECTION -->
+    <section id="contact" class="page-section">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Reach out for site inspections, quotes, or support inquiries.</p>
+
+        <div class="contact-wrapper">
+          <!-- Information -->
+          <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <p><strong>Address:</strong> 123 Security Avenue, Tech Park, Cityville</p>
+            <p><strong>Phone:</strong> +1 (555) 019-2834 / +1 (555) 019-2835</p>
+            <p><strong>Email:</strong> support@microsystemscctv.com</p>
+            <p><strong>Working Hours:</strong> Mon - Sat: 9:00 AM - 7:00 PM</p>
+          </div>
+
+          <!-- Form -->
+          <div class="contact-form">
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required placeholder="John Doe">
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required placeholder="john@example.com">
+              </div>
+              <div class="form-group">
+                <label for="service">Service Required</label>
+                <select id="service">
+                  <option value="installation">New Installation</option>
+                  <option value="repair">Repair / Maintenance</option>
+                  <option value="amc">AMC Query</option>
+                  <option value="other">Other Inquiry</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="4" required placeholder="Describe your requirement..."></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+              <div id="formResponse" style="margin-top: 1rem; font-weight: bold; font-size: 0.9rem;"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Microsystems CCTV Sales and Service. All rights reserved.</p>
+  </footer>
+
+  <!-- Embedded JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('nav-links');
+      const navItems = document.querySelectorAll('.nav-item');
+      const sections = document.querySelectorAll('.page-section');
+
+      // Toggle Mobile Menu
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+
+      // Tab Switching Logic (Multi-page behavior in SPA format)
+      function switchTab(targetId) {
+        // Hide all sections
+        sections.forEach(section => {
+          section.classList.remove('active');
+        });
+
+        // Deactivate all links
+        navItems.forEach(item => {
+          if (item.tagName === 'A') {
+            item.classList.remove('active');
+          }
+        });
+
+        // Show target section
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.classList.add('active');
+        }
+
+        // Highlight matching navbar link
+        const targetNavLink = document.querySelector(`.nav-links a[data-target="${targetId}"]`);
+        if (targetNavLink) {
+          targetNavLink.classList.add('active');
+        }
+
+        // Close mobile nav menu
+        navLinks.classList.remove('active');
+
+        // Scroll top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Attach click events to nav links/buttons
+      navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          const target = item.getAttribute('data-target');
+          if (target) {
+            switchTab(target);
+          }
+        });
+      });
+
+      // Handle Contact Form Submission
+      const contactForm = document.getElementById('contactForm');
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const formResponse = document.getElementById('formResponse');
+
+        if (!name || !email || !message) {
+          formResponse.style.color = '#ef4444';
+          formResponse.textContent = 'Please fill out all required fields.';
+          return;
+        }
+
+        formResponse.style.color = '#22c55e';
+        formResponse.textContent = 'Thank you! Your message has been sent successfully.';
+        contactForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>
